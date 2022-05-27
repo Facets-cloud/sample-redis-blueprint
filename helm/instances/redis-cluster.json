@@ -1,23 +1,24 @@
 {
+  "disabled": true,
   "$schema": "https://docs.facets.cloud/schemas/helm/instances/helm.schema",
   "flavor": "helm_simple",
   "spec": {
     "helm": {
-      "chart": "bitnami/redis-cluster",
+      "chart": "redis-cluster",
       "repository": "https://charts.bitnami.com/bitnami",
-      "wait": false,
+      "wait": true,
       "version": "7.5.7"
     },
     "env": [
       {
-        "name": "persistence.storageClass",
-        "type": "string",
-        "attribute": "default"
+        "name": "metrics.serviceMonitor.enabled",
+        "type": "static",
+        "attribute": "true"
       },
       {
         "name": "persistence.size",
-        "type": "string",
-        "default": "8Gi"
+        "type": "static",
+        "default": "10Gi"
       }
     ]
   }
