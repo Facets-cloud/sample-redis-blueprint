@@ -1,0 +1,20 @@
+{
+  "$schema": "https://docs.facets.cloud/schemas/helm/instances/helm.schema",
+  "flavor": "helm_simple",
+  "spec": {
+    "helm": {
+      "chart": "redisinsight",
+      "repository": "https://docs.redis.com/latest/pkgs/redisinsight-chart-0.1.0.tgz",
+      "wait": false,
+      "version": "7.5.7"
+    },
+    "env": [
+      {
+        "name": "service.type",
+        "type": "string",
+        "attribute": "NodePort"
+      }
+    ]
+  }
+}
+

@@ -1,0 +1,25 @@
+{
+  "$schema": "https://docs.facets.cloud/schemas/helm/instances/helm.schema",
+  "flavor": "helm_simple",
+  "spec": {
+    "helm": {
+      "chart": "bitnami/redis-cluster",
+      "repository": "https://charts.bitnami.com/bitnami",
+      "wait": false,
+      "version": "7.5.7"
+    },
+    "env": [
+      {
+        "name": "persistence.storageClass",
+        "type": "string",
+        "attribute": "default"
+      },
+      {
+        "name": "persistence.size",
+        "type": "string",
+        "default": "8Gi"
+      }
+    ]
+  }
+}
+
