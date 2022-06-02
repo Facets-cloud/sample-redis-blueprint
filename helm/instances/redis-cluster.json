@@ -16,19 +16,19 @@
         "attribute": "true"
       },
       {
+        "name": "cluster.externalAccess.enabled",
+        "type": "static",
+        "attribute": "true"
+      },
+      {
+        "name": "cluster.externalAccess.service.annotations",
+        "type": "static",
+        "attribute": "service.beta.kubernetes.io/aws-load-balancer-internal: \"true\""
+      },
+      {
         "name": "persistence.size",
         "type": "static",
         "default": "10Gi"
-      },
-      {
-        "name": "resources.limits.cpu",
-        "type": "static",
-        "attribute": "100m"
-      },
-      {
-        "name": "resources.limits.memory",
-        "type": "static",
-        "attribute": "128Mi"
       }
     ]
   }
