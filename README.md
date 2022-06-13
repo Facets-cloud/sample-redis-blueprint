@@ -1,7 +1,7 @@
 # Some list of redis-cluster examples below:
 1. [Redis-cluster with persistence storage, metrics enabled, resource limit for cpu and memory](https://github.com/Facets-cloud/sample-redis-blueprint/edit/master/README.md#example-1-redis-cluster-with-persistence-storage-metrics-enabled-resource-limit-for-cpu-and-memory)
 2. [Redis-cluster with external access enabled with internal load-balancers (Azure)](https://github.com/Facets-cloud/sample-redis-blueprint#example-2-redis-cluster-with-external-access-enabled-with-internal-load-balancers-azure)
-3. [Redis-cluster with external access enabled with internal load-balancers (AWS)](https://github.com/Facets-cloud/sample-redis-blueprint/edit/master/README.md#example-3-redis-cluster-with-external-access-enabled-with-internal-load-balancers-aws)
+3. [Redis-cluster with external access enabled with internal load-balancers (AWS)](https://github.com/Facets-cloud/sample-redis-blueprint#example-3-redis-cluster-with-external-access-enabled-with-internal-load-balancers-aws)
 
 
 ### Example 1: Redis-cluster with persistence storage, metrics enabled, resource limit for cpu and memory
