@@ -47,12 +47,11 @@
 ```
 
 
-### Example 2: Redis-cluster with external access enabled with internet-facing load-balancers (AWS and Azure)
+### Example 2: Redis-cluster with external access enabled with internal load-balancers Azure
 
 ```
 {
-  "disabled": true,
-  "$schema": "https://docs.facets.cloud/schemas/helm/instances/helm.schema",
+  "disabled": false,
   "flavor": "helm_simple",
   "spec": {
     "helm": {
@@ -61,35 +60,37 @@
       "wait": true,
       "version": "7.5.7"
     },
-    "env": [
-      {
-        "name": "metrics.serviceMonitor.enabled",
-        "type": "static",
-        "attribute": "true"
+    "env": [],
+    "values": {
+      "usePassword": false,
+      "cluster": {
+        "externalAccess": {
+          "enabled": true,
+          "service": {
+            "annotations": {
+              "service.beta.kubernetes.io/azure-load-balancer-internal": "true"
+            }
+          }
+        }
       },
-      {
-        "name": "persistence.size",
-        "type": "static",
-        "default": "10Gi"
+      "metrics": {
+        "serviceMonitor": {
+          "enabled": true
+        }
       },
-      {
-        "name": "cluster.externalAccess.enabled",
-        "type": "static",
-        "attribute": "true"
+      "persistence": {
+        "size": "15Gi"
       }
-    ]
+    }
   }
 }
 ```
 
-
-### Example 3: Redis-cluster with external access enabled with internal load-balancers(AWS)
-
+then once the deployment is complete, gather the external-ip of each and service and add an overide like below to map the ip to service.
 
 ```
 {
-  "disabled": true,
-  "$schema": "https://docs.facets.cloud/schemas/helm/instances/helm.schema",
+  "disabled": false,
   "flavor": "helm_simple",
   "spec": {
     "helm": {
@@ -98,31 +99,35 @@
       "wait": true,
       "version": "7.5.7"
     },
-    "env": [
-      ,
-      {
-        "name": "cluster.externalAccess.enabled",
-        "type": "static",
-        "attribute": "true"
-      },
-      {
-        "name": "cluster.externalAccess.service.annotations",
-        "type": "static",
-        "attribute": "service.beta.kubernetes.io/aws-load-balancer-internal: \"true\""
+    "env": [],
+    "values": {
+      "usePassword": false,
+      "cluster": {
+        "externalAccess": {
+          "enabled": true,
+          "service": {
+            "loadBalancerIP": [
+              "10.111.1.28",
+              "10.111.1.31",
+              "10.111.1.30",
+              "10.111.1.29",
+              "10.111.1.26",
+              "10.111.1.27"
+            ],
+            "type": "LoadBalancer"
+          }
+        }
       }
-    ]
+    }
   }
 }
 ```
 
-
-### Example 4: Redis-cluster with external access enabled with internal load-balancers(Azure)
-
+### Example 3: Redis-cluster with external access enabled with internal load-balancers AWS
 
 ```
 {
-  "disabled": true,
-  "$schema": "https://docs.facets.cloud/schemas/helm/instances/helm.schema",
+  "disabled": false,
   "flavor": "helm_simple",
   "spec": {
     "helm": {
@@ -131,19 +136,65 @@
       "wait": true,
       "version": "7.5.7"
     },
-    "env": [
-      ,
-      {
-        "name": "cluster.externalAccess.enabled",
-        "type": "static",
-        "attribute": "true"
+    "env": [],
+    "values": {
+      "usePassword": false,
+      "cluster": {
+        "externalAccess": {
+          "enabled": true,
+          "service": {
+            "annotations": {
+              "service.beta.kubernetes.io/aws-load-balancer-internal": "true"
+            }
+          }
+        }
       },
-      {
-        "name": "cluster.externalAccess.service.annotations",
-        "type": "static",
-        "attribute": "service.beta.kubernetes.io/azure-load-balancer-internal: \"true\""
+      "metrics": {
+        "serviceMonitor": {
+          "enabled": true
+        }
+      },
+      "persistence": {
+        "size": "15Gi"
       }
-    ]
+    }
+  }
+}
+```
+
+then once the deployment is complete, gather the external-ip of each and service and add an overide like below to map the ip to service.
+
+```
+{
+  "disabled": false,
+  "flavor": "helm_simple",
+  "spec": {
+    "helm": {
+      "chart": "redis-cluster",
+      "repository": "https://charts.bitnami.com/bitnami",
+      "wait": true,
+      "version": "7.5.7"
+    },
+    "env": [],
+    "values": {
+      "usePassword": false,
+      "cluster": {
+        "externalAccess": {
+          "enabled": true,
+          "service": {
+            "loadBalancerIP": [
+              "internal-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-xxxxxxxxxx.us-east-1.elb.amazonaws.com",
+              "internal-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-xxxxxxxxxx.us-east-1.elb.amazonaws.com",
+              "internal-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-xxxxxxxxxx.us-east-1.elb.amazonaws.com",
+              "internal-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-xxxxxxxxxx.us-east-1.elb.amazonaws.com",
+              "internal-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-xxxxxxxxxx.us-east-1.elb.amazonaws.com",
+              "internal-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-xxxxxxxxxx.us-east-1.elb.amazonaws.com"
+            ],
+            "type": "LoadBalancer"
+          }
+        }
+      }
+    }
   }
 }
 ```
