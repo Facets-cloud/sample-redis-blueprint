@@ -61,11 +61,15 @@
     },
     "env": [],
     "values": {
+      "persistence": {
+        "enabled": false
+      },
       "usePassword": false,
       "cluster": {
         "externalAccess": {
           "enabled": true,
           "service": {
+            "type": "LoadBalancer",
             "annotations": {
               "service.beta.kubernetes.io/azure-load-balancer-internal": "true"
             }
@@ -76,9 +80,6 @@
         "serviceMonitor": {
           "enabled": true
         }
-      },
-      "persistence": {
-        "size": "15Gi"
       }
     }
   }
@@ -137,11 +138,15 @@ then once the deployment is complete, gather the external-ip of each and service
     },
     "env": [],
     "values": {
+      "persistence": {
+        "enabled": false
+      },
       "usePassword": false,
       "cluster": {
         "externalAccess": {
           "enabled": true,
           "service": {
+            "type": "LoadBalancer",
             "annotations": {
               "service.beta.kubernetes.io/aws-load-balancer-internal": "true"
             }
@@ -152,9 +157,6 @@ then once the deployment is complete, gather the external-ip of each and service
         "serviceMonitor": {
           "enabled": true
         }
-      },
-      "persistence": {
-        "size": "15Gi"
       }
     }
   }
