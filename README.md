@@ -17,7 +17,7 @@
       "chart": "redis-cluster",
       "repository": "https://charts.bitnami.com/bitnami",
       "wait": true,
-      "version": "7.5.7"
+      "version": "7.6.3"
     },
     "env": [
       {
@@ -57,7 +57,7 @@
       "chart": "redis-cluster",
       "repository": "https://charts.bitnami.com/bitnami",
       "wait": true,
-      "version": "7.5.7"
+      "version": "7.6.3"
     },
     "env": [],
     "values": {
@@ -97,27 +97,38 @@ then once the deployment is complete, gather the external-ip of each and service
       "chart": "redis-cluster",
       "repository": "https://charts.bitnami.com/bitnami",
       "wait": true,
-      "version": "7.5.7"
+      "version": "7.6.3"
     },
     "env": [],
     "values": {
-      "usePassword": false,
       "cluster": {
         "externalAccess": {
           "enabled": true,
           "service": {
+            "annotations": {
+              "service.beta.kubernetes.io/azure-load-balancer-internal": "true"
+            },
             "loadBalancerIP": [
-              "10.111.1.28",
-              "10.111.1.31",
-              "10.111.1.30",
-              "10.111.1.29",
-              "10.111.1.26",
-              "10.111.1.27"
+              "10.111.3.158",
+              "10.111.3.162",
+              "10.111.3.159",
+              "10.111.3.161",
+              "10.111.3.160",
+              "10.111.3.163"
             ],
             "type": "LoadBalancer"
           }
         }
-      }
+      },
+      "metrics": {
+        "serviceMonitor": {
+          "enabled": true
+        }
+      },
+      "persistence": {
+        "enabled": false
+      },
+      "usePassword": false
     }
   }
 }
