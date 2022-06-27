@@ -1,36 +1,35 @@
 {
-  "disabled": true,
-  "$schema": "https://docs.facets.cloud/schemas/helm/instances/helm.schema",
+  "disabled": false,
   "flavor": "helm_simple",
   "spec": {
     "helm": {
       "chart": "redis-cluster",
       "repository": "https://charts.bitnami.com/bitnami",
       "wait": true,
-      "version": "7.5.7"
+      "version": "7.6.3"
     },
-    "env": [
-      {
-        "name": "metrics.serviceMonitor.enabled",
-        "type": "static",
-        "attribute": "true"
+    "env": [],
+    "values": {
+      "persistence": {
+        "enabled": false
       },
-      {
-        "name": "cluster.externalAccess.enabled",
-        "type": "static",
-        "attribute": "true"
+      "usePassword": false,
+      "cluster": {
+        "externalAccess": {
+          "enabled": true,
+          "service": {
+            "type": "LoadBalancer",
+            "annotations": {
+              "service.beta.kubernetes.io/azure-load-balancer-internal": "true"
+            }
+          }
+        }
       },
-      {
-        "name": "cluster.externalAccess.service.annotations",
-        "type": "static",
-        "attribute": "service.beta.kubernetes.io/aws-load-balancer-internal: \"true\""
-      },
-      {
-        "name": "persistence.size",
-        "type": "static",
-        "default": "10Gi"
+      "metrics": {
+        "serviceMonitor": {
+          "enabled": true
+        }
       }
-    ]
+    }
   }
 }
-
